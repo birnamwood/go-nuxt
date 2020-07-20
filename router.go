@@ -13,8 +13,7 @@ func newRouter() *echo.Echo {
 	e.Use(middleware.Recover())
 
 	// Routing
-	e.POST("/signup", handler.Signup())
-	e.POST("/login", handler.Login())
+	e.POST("/signup", handler.Signup)
 
 	return e
 }
