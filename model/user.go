@@ -1,21 +1,39 @@
 package model
 
-// User comment
+import (
+	"../database"
+	"github.com/jinzhu/gorm"
+)
+
+// User Struct
 type User struct {
-	ID       int    `'json:"id" gorm:"primary_key"`
-	Mail     string `json:"mail"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
+	gorm.Model
+	Email    string
+	Password string
+	Name     string
+	Token    string
 }
 
-// CreateUser comment
-func CreateUser(user *User) {
-	db.Create(user)
+// FindByID comment
+func (u *User) FindByID(id int) (err error) {
+	db := database.GetDB()
+	return db.Where("id = ?", id).First(u).Error
 }
 
-// FindUser comment
-func FindUser(u *User) User {
-	var user User
-	db.Where(u).First(&user)
-	return user
+// Create comment
+func (u *User) Create() (err error) {
+	db := database.GetDB()
+	return db.Create(u).Error
+}
+
+// Update comment
+func (u *User) Update() (err error) {
+	db := database.GetDB()
+	return db.Update(u).Error
+}
+
+// Delete comment
+func (u *User) Delete() (err error) {
+	db := database.GetDB()
+	return db.Delete(u).Error
 }

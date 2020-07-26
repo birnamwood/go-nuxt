@@ -1,0 +1,7 @@
+server:
+  port: 8000
+  version: v1
+
+db:
+  provider: sqlite3
+  url: ./database/database.db
