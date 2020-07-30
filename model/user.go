@@ -2,6 +2,7 @@ package model
 
 import (
 	"../database"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -12,12 +13,6 @@ type User struct {
 	Password string
 	Name     string
 	Token    string
-}
-
-// FindByID comment
-func (u *User) FindByID(id int) (err error) {
-	db := database.GetDB()
-	return db.Where("id = ?", id).First(u).Error
 }
 
 // Create comment

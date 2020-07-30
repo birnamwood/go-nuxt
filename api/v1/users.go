@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"../../database"
 	"../../model"
+	"../../repository"
 	"github.com/labstack/echo"
 )
 
@@ -14,9 +14,8 @@ func ShowUser(c echo.Context) error {
 	var id int
 	id, _ = strconv.Atoi(c.Param("user_id"))
 
-	user := new(model.User)
-	database.Init(user)
-	user.FindByID(id)
+	var user model.User
+	user = repository.FindUserByID(id)
 
 	return c.JSON(http.StatusOK, user)
 }
