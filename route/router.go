@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/birnamwood/go-nuxt/api"
+	"github.com/birnamwood/go-nuxt/api/v1"
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/handler"
 	"github.com/labstack/echo"
