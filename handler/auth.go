@@ -8,22 +8,7 @@ import (
 	"github.com/birnamwood/go-nuxt/repository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
 )
-
-type jwtCustomClaims struct {
-	Email    string
-	Password string
-	jwt.StandardClaims
-}
-
-var signingKey = []byte("secret")
-
-//Config comment
-var Config = middleware.JWTConfig{
-	Claims:     &jwtCustomClaims{},
-	SigningKey: signingKey,
-}
 
 // Signup の説明
 func Signup(c echo.Context) error {
@@ -59,29 +44,27 @@ func Login(c echo.Context) error {
 		}
 	}
 
-	claims := &jwtCustomClaims{
-		user.Email,
-		user.Password,
-		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
-		},
-	}
+	token := jwt.New(jwt.SigningMethodHS256)
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString(signingKey)
+	claims := token.Claims.(jwt.MapClaims)
+	claims["email"] = user.Email
+	claims["admin"] = true
+	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+	t, err := token.SignedString([]byte("secret"))
 	if err != nil {
 		return err
 	}
-
 	return c.JSON(http.StatusOK, map[string]string{
 		"token": t,
 	})
 }
 
-// user
-func userIDFromToken(c echo.Context) string {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(*jwtCustomClaims)
-	email := claims.Email
-	return email
+func Restricted() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		user := c.Get("user").(*jwt.Token)
+		claims := user.Claims.(jwt.MapClaims)
+		Email := claims["email"].(string)
+		return c.String(http.StatusOK, "Welcome "+Email+"!")
+	}
 }

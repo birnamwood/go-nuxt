@@ -19,6 +19,10 @@ func Init() *echo.Echo {
 
 	// Routing
 	e.POST("/signup", handler.Signup)
+	e.POST("/login", handler.Login)
+	r := e.Group("/restricted")
+	r.Use(middleware.JWT([]byte("secret")))
+	r.POST("", handler.Restricted())
 
 	v1 := e.Group("/api/v1")
 	{
@@ -26,7 +30,7 @@ func Init() *echo.Echo {
 	}
 	v2 := e.Group("/api/v2")
 	{
-		v2.Use(middleware.JWTWithConfig(handler.Config)) // /api 下はJWTの認証が必要
+		v2.Use(middleware.JWT([]byte("secret")))
 	}
 
 	e.Logger.Fatal(e.Start(":" + c.GetString("server.port")))
