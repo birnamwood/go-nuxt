@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"../model"
-	"../repository"
+	"github.com/birnamwood/go-nuxt/model"
+	"github.com/birnamwood/go-nuxt/repository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"

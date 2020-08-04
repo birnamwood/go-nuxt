@@ -1,9 +1,17 @@
 package repository
 
 import (
-	"../database"
-	"../model"
+	"github.com/birnamwood/go-nuxt/database"
+	"github.com/birnamwood/go-nuxt/model"
 )
+
+//FindAllUsers レコード全件取得
+func FindAllUsers() []model.User {
+	db := database.GetDB()
+	var users []model.User
+	db.Find(&users)
+	return users
+}
 
 //FindUserByID comment
 func FindUserByID(id int) model.User {

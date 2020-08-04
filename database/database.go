@@ -2,7 +2,7 @@ package database
 
 //
 import (
-	"../config"
+	"github.com/birnamwood/go-nuxt/config"
 	"github.com/jinzhu/gorm"
 )
 

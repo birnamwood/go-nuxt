@@ -1,9 +1,9 @@
 package route
 
 import (
-	"../api/v1"
-	"../config"
-	"../handler"
+	"github.com/birnamwood/go-nuxt/api"
+	"github.com/birnamwood/go-nuxt/config"
+	"github.com/birnamwood/go-nuxt/handler"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

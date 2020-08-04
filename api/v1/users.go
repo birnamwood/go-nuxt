@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"../../model"
-	"../../repository"
+	"github.com/birnamwood/go-nuxt/model"
+	"github.com/birnamwood/go-nuxt/repository"
 	"github.com/labstack/echo"
 )
 
