@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/birnamwood/go-nuxt/api/v1"
+	api_v1 "github.com/birnamwood/go-nuxt/api/v1"
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/handler"
 	"github.com/labstack/echo"
@@ -26,7 +26,9 @@ func Init() *echo.Echo {
 
 	v1 := e.Group("/api/v1")
 	{
-		v1.GET("/user/:user_id", api.ShowUser)
+		v1.Use(middleware.JWT([]byte("secret")))
+		v1.POST("/user/:user_id", api_v1.ShowUser)
+		v1.POST("/users", api_v1.ShowUsers)
 	}
 	v2 := e.Group("/api/v2")
 	{

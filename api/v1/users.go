@@ -1,4 +1,4 @@
-package api
+package api_v1
 
 import (
 	"net/http"
@@ -18,4 +18,11 @@ func ShowUser(c echo.Context) error {
 	user = repository.FindUserByID(id)
 
 	return c.JSON(http.StatusOK, user)
+}
+
+func ShowUsers(c echo.Context) error {
+	var users []model.User
+	users = repository.FindAllUsers()
+
+	return c.JSON(http.StatusOK, users)
 }

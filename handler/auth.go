@@ -23,10 +23,19 @@ func Signup(c echo.Context) error {
 		}
 	}
 	user.Create()
-	user.Password = ""
 
-	return c.JSON(http.StatusOK, user)
+	token := jwt.New(jwt.SigningMethodHS256)
 
+	claims := token.Claims.(jwt.MapClaims)
+	claims["email"] = user.Email
+	claims["admin"] = true
+	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+	t, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		return err
+	}
+	return c.JSON(http.StatusOK, t)
 }
 
 //Login comment
@@ -40,7 +49,7 @@ func Login(c echo.Context) error {
 	if user.ID == 0 || user.Password != u.Password {
 		return &echo.HTTPError{
 			Code:    http.StatusUnauthorized,
-			Message: "invalid name or password",
+			Message: "invalid email or password",
 		}
 	}
 
@@ -55,9 +64,7 @@ func Login(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.JSON(http.StatusOK, map[string]string{
-		"token": t,
-	})
+	return c.JSON(http.StatusOK, t)
 }
 
 func Restricted() echo.HandlerFunc {
