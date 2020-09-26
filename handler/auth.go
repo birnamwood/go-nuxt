@@ -28,6 +28,7 @@ func Signup(c echo.Context) error {
 
 	claims := token.Claims.(jwt.MapClaims)
 	claims["email"] = user.Email
+	claims["name"] = user.Name
 	claims["admin"] = true
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
@@ -57,6 +58,7 @@ func Login(c echo.Context) error {
 
 	claims := token.Claims.(jwt.MapClaims)
 	claims["email"] = user.Email
+	claims["name"] = user.Name
 	claims["admin"] = true
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
@@ -71,7 +73,7 @@ func Restricted() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := c.Get("user").(*jwt.Token)
 		claims := user.Claims.(jwt.MapClaims)
-		Email := claims["email"].(string)
-		return c.String(http.StatusOK, "Welcome "+Email+"!")
+		Name := claims["name"].(string)
+		return c.String(http.StatusOK, Name)
 	}
 }
