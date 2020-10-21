@@ -10,12 +10,15 @@ var db *gorm.DB
 
 //Init database接続
 func Init(models ...interface{}) {
+	//configの内容取得
 	c := config.GetConfig()
 	var err error
+	//configからデータベースのプロバイダとパスを取得しOpenする
 	db, err = gorm.Open(c.GetString("db.provider"), c.GetString("db.url"))
 	if err != nil {
 		panic("failed to connect database")
 	}
+	//parameterでモデル名が渡された場合マイグレーション
 	db.AutoMigrate(models...)
 }
 

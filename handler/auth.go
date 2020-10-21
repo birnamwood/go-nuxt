@@ -26,12 +26,14 @@ func Signup(c echo.Context) error {
 
 	token := jwt.New(jwt.SigningMethodHS256)
 
+	//トークンにユーザーの情報をセット
 	claims := token.Claims.(jwt.MapClaims)
 	claims["email"] = user.Email
 	claims["name"] = user.Name
 	claims["admin"] = true
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
+	//トークン生成
 	t, err := token.SignedString([]byte("secret"))
 	if err != nil {
 		return err
@@ -71,6 +73,7 @@ func Login(c echo.Context) error {
 
 func Restricted() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		//トークンからユーザーをサーチ
 		user := c.Get("user").(*jwt.Token)
 		claims := user.Claims.(jwt.MapClaims)
 		Name := claims["name"].(string)
