@@ -27,6 +27,7 @@ func Init() *echo.Echo {
 	v1 := e.Group("/api/v1")
 	{
 		v1.Use(middleware.JWT([]byte("secret")))
+		v1.POST("/current-user", api_v1.GetCurrentUser)
 		v1.POST("/user/:user_id", api_v1.ShowUser)
 		v1.POST("/users", api_v1.ShowUsers)
 	}
