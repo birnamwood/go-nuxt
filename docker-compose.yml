@@ -3,9 +3,11 @@ version: '3'
 services:
   postgres:
     container_name: postgres
+    ports:
+      - 5432:5432
     build:
-      context:
-      dockerfile: ./docker/postgres/Dcokerfile
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -13,16 +15,18 @@ services:
 
   api:
     container_name: api
+    ports:
+      - 8000:8000
     depends_on:
       - postgres
     build:
-      context:
+      context: .
       dockerfile: ./docker/go/Dockerfile
     environment:
       - GOPATH=/go
-      volumes:
-        # ホストOS：コンテナ側
-        - ~/go/src/github.com/birnamwood/go-nuxt: /go/src
-      command: go run main.go development
+    volumes:
+      # ホストOS：コンテナ側
+      - ./go:/go/src/
+    command: go run main.go development
 
     
