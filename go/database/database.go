@@ -45,5 +45,3 @@ func Init() {
 func GetDB() *gorm.DB {
 	return db
 }
-
-//Close close database

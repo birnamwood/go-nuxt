@@ -25,6 +25,7 @@ func Init() *echo.Echo {
 	// Routing
 	e.POST("/signup", handler.Signup)
 	e.POST("/login", handler.Login)
+	//DB接続テスト用
 	e.GET("/users", api_v1.ShowUsers)
 
 	r := e.Group("/restricted")

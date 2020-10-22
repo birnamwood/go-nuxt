@@ -3,7 +3,6 @@ server:
   version: v1
 
 db:
-  provider: postgres
   # Dockerを使う場合はアドレスではなくコンテナ名を指定する
   host: postgres
   port: 5432
