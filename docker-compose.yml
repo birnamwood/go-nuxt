@@ -28,5 +28,3 @@ services:
       # ホストOS：コンテナ側
       - ./go:/go/src/
     command: go run main.go development
-
-    

@@ -25,6 +25,8 @@ func Init() *echo.Echo {
 	// Routing
 	e.POST("/signup", handler.Signup)
 	e.POST("/login", handler.Login)
+	e.GET("/users", api_v1.ShowUsers)
+
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
 	r.POST("", handler.Restricted())

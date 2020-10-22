@@ -6,8 +6,6 @@ import (
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/database"
 	"github.com/birnamwood/go-nuxt/route"
-
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 // main

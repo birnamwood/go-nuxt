@@ -3,7 +3,7 @@ package model
 import (
 	"github.com/birnamwood/go-nuxt/database"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 // User Struct
@@ -24,7 +24,7 @@ func (u *User) Create() (err error) {
 // Update comment
 func (u *User) Update() (err error) {
 	db := database.GetDB()
-	return db.Update(u).Error
+	return db.Save(u).Error
 }
 
 // Delete comment

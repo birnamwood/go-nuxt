@@ -3,5 +3,10 @@ server:
   version: v1
 
 db:
-  provider: sqlite3
-  url: ./database/database.db
+  provider: postgres
+  # Dockerを使う場合はアドレスではなくコンテナ名を指定する
+  host: postgres
+  port: 5432
+  dbname: db
+  user: postgres
+  password: postgres
