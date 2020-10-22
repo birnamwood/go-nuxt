@@ -34,11 +34,9 @@ func Init() {
 		"file://migrations",
 		"postgres://postgres:postgres@postgres:5432/db?sslmode=disable")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("マイグレーション失敗")
 	}
-	if err := m.Up(); err != nil {
-		log.Fatal(err)
-	}
+	m.Steps(2)
 }
 
 //GetDB return db connection
