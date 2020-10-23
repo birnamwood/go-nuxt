@@ -2,11 +2,10 @@ package model
 
 import (
 	"github.com/birnamwood/go-nuxt/database"
-
 	"gorm.io/gorm"
 )
 
-// User Struct
+// User Struct gorm.modelと書くと、IDと~_at系のフィールドができる
 type User struct {
 	gorm.Model
 	Email    string

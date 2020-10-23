@@ -1,4 +1,4 @@
-FROM golang:1.14
+FROM golang:1.15
 
 # コンテナ側作業ディレクトリ
 WORKDIR /go/src/

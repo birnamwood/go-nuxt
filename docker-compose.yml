@@ -26,5 +26,5 @@ services:
       - GOPATH=/go
     volumes:
       # ホストOS：コンテナ側
-      - ./go:/go/src/
+      - ./go:/go/src/github.com/birnamwood/go-nuxt/
     command: go run main.go development

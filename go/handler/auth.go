@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/birnamwood/go-nuxt/model"
-	"github.com/birnamwood/go-nuxt/repository"
+	"github.com/birnamwood/go-nuxt/repository/user_repository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
@@ -47,7 +47,7 @@ func Login(c echo.Context) error {
 	if err := c.Bind(u); err != nil {
 		return err
 	}
-	user := repository.FindUserByEmail(u.Email)
+	user := user_repository.FindUserByEmail(u.Email)
 
 	if user.ID == 0 || user.Password != u.Password {
 		return &echo.HTTPError{
