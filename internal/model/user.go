@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/birnamwood/go-nuxt/database"
+	"github.com/birnamwood/go-nuxt/internal/database"
 	"gorm.io/gorm"
 )
 
