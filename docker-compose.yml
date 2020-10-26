@@ -17,6 +17,7 @@ services:
     container_name: api
     ports:
       - 8000:8000
+      - 5002:5002
     depends_on:
       - postgres
     build:
@@ -27,4 +28,4 @@ services:
     volumes:
       # ホストOS：コンテナ側
       - ./go:/go/src/github.com/birnamwood/go-nuxt/
-    command: go run main.go development
+    command: realize start --server

@@ -1,7 +1,8 @@
 package route
 
 import (
-	api_v1 "github.com/birnamwood/go-nuxt/api/v1"
+	"github.com/birnamwood/go-nuxt/api/v1/clinic_api"
+	"github.com/birnamwood/go-nuxt/api/v1/user_api"
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/handler"
 	"github.com/labstack/echo"
@@ -22,11 +23,12 @@ func Init() *echo.Echo {
 	//echoのmiddleware 予期せずpanic時、サーバは落とさずにエラーを返せるようにリカバリーする
 	e.Use(middleware.Recover())
 
+	//DB接続テスト用
+	e.GET("/", clinic_api.Hello)
+	e.GET("/users", user_api.ShowUsers)
 	// Routing
 	e.POST("/signup", handler.Signup)
 	e.POST("/login", handler.Login)
-	//DB接続テスト用
-	e.GET("/users", api_v1.ShowUsers)
 
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
@@ -37,9 +39,9 @@ func Init() *echo.Echo {
 	{
 		//グループ下のルートではでJWTによる認証必須とする。
 		v1.Use(middleware.JWT([]byte("secret")))
-		v1.POST("/current-user", api_v1.GetCurrentUser)
-		v1.POST("/user/:user_id", api_v1.ShowUser)
-		v1.POST("/users", api_v1.ShowUsers)
+		v1.POST("/current-user", user_api.GetCurrentUser)
+		v1.POST("/user/:user_id", user_api.ShowUser)
+		v1.POST("/users", user_api.ShowUsers)
 	}
 	v2 := e.Group("/api/v2")
 	{

@@ -1,4 +1,4 @@
-package api_v1
+package user_api
 
 import (
 	"net/http"
@@ -9,6 +9,10 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
+
+func Hello(c echo.Context) error {
+	return c.String(http.StatusOK, "Hello, World!")
+}
 
 // GetCurrentUser の説明
 func GetCurrentUser(c echo.Context) error {
