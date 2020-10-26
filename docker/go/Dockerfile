@@ -4,10 +4,10 @@ FROM golang:1.15
 WORKDIR /go/src/github.com/birnamwood/go-nuxt
 
 # プロジェクトのソースをコンテナに追加
-ADD ./ .
+COPY ./ /go/src/github.com/birnamwood/go-nuxt
 
 # Package追加
-RUN go get
+RUN go get -u all
 # realizeはgo module非対応
 ENV GO111MODULE=off
 RUN go get github.com/oxequa/realize 

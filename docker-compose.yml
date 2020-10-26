@@ -27,5 +27,5 @@ services:
       - GOPATH=/go
     volumes:
       # ホストOS：コンテナ側
-      - ./go:/go/src/github.com/birnamwood/go-nuxt/
+      - ./:/go/src/github.com/birnamwood/go-nuxt/
     command: realize start --server

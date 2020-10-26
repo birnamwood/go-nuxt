@@ -15,7 +15,7 @@ schema:
   commands:
     install:
       status: true
-      method: go build -o go-nuxt
+      method: go build -o go-nuxt ./cmd/go-nuxt/main.go
     run:
       status: true
       method: ./go-nuxt
@@ -24,7 +24,7 @@ schema:
     - go
     - yaml
     paths:
-    - /
+    - ./
     ignored_paths:
     - .git
     - .realize
