@@ -1,7 +1,9 @@
 package model
 
 import (
-	"github.com/birnamwood/go-nuxt/internal/database"
+	"time"
+
+	"github.com/birnamwood/go-nuxt/pkg/database"
 	"gorm.io/gorm"
 )
 
@@ -14,20 +16,22 @@ type User struct {
 	Token    string
 }
 
-// Create comment
 func (u *User) Create() (err error) {
 	db := database.GetDB()
 	return db.Create(u).Error
 }
 
-// Update comment
 func (u *User) Update() (err error) {
 	db := database.GetDB()
 	return db.Save(u).Error
 }
 
-// Delete comment
 func (u *User) Delete() (err error) {
 	db := database.GetDB()
 	return db.Delete(u).Error
+}
+
+func (u *User) DeleteUpdate() (err error) {
+	db := database.GetDB()
+	return db.UpdateColumn("DeletedAt", time.Now()).Error
 }

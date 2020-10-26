@@ -4,8 +4,8 @@ import (
 	"flag"
 
 	"github.com/birnamwood/go-nuxt/config"
-	"github.com/birnamwood/go-nuxt/internal/database"
-	"github.com/birnamwood/go-nuxt/internal/route"
+	"github.com/birnamwood/go-nuxt/pkg/database"
+	"github.com/birnamwood/go-nuxt/pkg/route"
 )
 
 // main

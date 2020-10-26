@@ -1,10 +1,10 @@
 package route
 
 import (
-	"github.com/birnamwood/go-nuxt/api/v1/clinic_api"
-	"github.com/birnamwood/go-nuxt/api/v1/user_api"
 	"github.com/birnamwood/go-nuxt/config"
-	"github.com/birnamwood/go-nuxt/internal/handler"
+	"github.com/birnamwood/go-nuxt/pkg/api/v1/clinic_api"
+	"github.com/birnamwood/go-nuxt/pkg/api/v1/user_api"
+	"github.com/birnamwood/go-nuxt/pkg/handler"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

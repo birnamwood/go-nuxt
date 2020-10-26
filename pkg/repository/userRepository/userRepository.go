@@ -1,8 +1,8 @@
-package user_repository
+package userRepository
 
 import (
-	"github.com/birnamwood/go-nuxt/internal/database"
-	"github.com/birnamwood/go-nuxt/internal/model"
+	"github.com/birnamwood/go-nuxt/pkg/database"
+	"github.com/birnamwood/go-nuxt/pkg/model"
 )
 
 //FindAllUsers レコード全件取得

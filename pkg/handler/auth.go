@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/birnamwood/go-nuxt/internal/model"
-	"github.com/birnamwood/go-nuxt/internal/repository/user_repository"
+	"github.com/birnamwood/go-nuxt/pkg/model"
+	"github.com/birnamwood/go-nuxt/pkg/repository/userRepository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
@@ -22,7 +22,9 @@ func Signup(c echo.Context) error {
 			Message: "invalid Email or Password",
 		}
 	}
-	user.Create()
+	if err := user.Create(); err != nil {
+		return err
+	}
 
 	token := jwt.New(jwt.SigningMethodHS256)
 
@@ -47,7 +49,7 @@ func Login(c echo.Context) error {
 	if err := c.Bind(u); err != nil {
 		return err
 	}
-	user := user_repository.FindUserByEmail(u.Email)
+	user := userRepository.FindUserByEmail(u.Email)
 
 	if user.ID == 0 || user.Password != u.Password {
 		return &echo.HTTPError{

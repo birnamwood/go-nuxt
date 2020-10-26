@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/birnamwood/go-nuxt/internal/model"
-	"github.com/birnamwood/go-nuxt/internal/repository/user_repository"
+	"github.com/birnamwood/go-nuxt/pkg/model"
+	"github.com/birnamwood/go-nuxt/pkg/repository/userRepository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
@@ -19,7 +19,7 @@ func GetCurrentUser(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 	mail := claims["email"].(string)
-	var currentUser = user_repository.FindUserByEmail(mail)
+	var currentUser = userRepository.FindUserByEmail(mail)
 	return c.JSON(http.StatusOK, currentUser)
 }
 
@@ -28,14 +28,14 @@ func ShowUser(c echo.Context) error {
 	var id int
 	id, _ = strconv.Atoi(c.Param("user_id"))
 	var user model.User
-	user = user_repository.FindUserByID(id)
+	user = userRepository.FindUserByID(id)
 
 	return c.JSON(http.StatusOK, user)
 }
 
 func ShowUsers(c echo.Context) error {
 	var users []model.User
-	users = user_repository.FindAllUsers()
+	users = userRepository.FindAllUsers()
 
 	return c.JSON(http.StatusOK, users)
 }
