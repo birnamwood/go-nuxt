@@ -10,7 +10,7 @@ import (
 )
 
 //Init router
-func Init() *echo.Echo {
+func Init() {
 	c := config.GetConfig()
 	//FWはechoを使用
 	e := echo.New()
@@ -50,5 +50,4 @@ func Init() *echo.Echo {
 
 	//e.start(ポート番号)でサーバースタート
 	e.Logger.Fatal(e.Start(":" + c.GetString("server.port")))
-	return nil
 }
