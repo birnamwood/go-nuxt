@@ -31,7 +31,7 @@ func Init() {
 		panic("データベースへの接続失敗")
 	}
 	m, err := migrate.New(
-		"file://migrations",
+		"file://migration",
 		"postgres://postgres:postgres@postgres:5432/db?sslmode=disable")
 	if err != nil {
 		log.Fatal("マイグレーション失敗")

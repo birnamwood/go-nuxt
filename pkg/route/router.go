@@ -2,7 +2,6 @@ package route
 
 import (
 	"github.com/birnamwood/go-nuxt/config"
-	"github.com/birnamwood/go-nuxt/pkg/api/v1/clinic_api"
 	"github.com/birnamwood/go-nuxt/pkg/api/v1/user_api"
 	"github.com/birnamwood/go-nuxt/pkg/handler"
 	"github.com/labstack/echo"
@@ -24,7 +23,7 @@ func Init() {
 	e.Use(middleware.Recover())
 
 	//DB接続テスト用
-	e.GET("/", clinic_api.Hello)
+	e.GET("/", user_api.Hello)
 	e.GET("/users", user_api.ShowUsers)
 	// Routing
 	e.POST("/signup", handler.Signup)

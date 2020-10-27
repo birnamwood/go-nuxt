@@ -12,6 +12,7 @@ type Card struct {
 	gorm.Model
 	AccountId int `gorm:"foreignKey:AccountRefer,constraint:OnDelete:CASCADE;"`
 	Account   Account
+	Name      string
 }
 
 func (c *Card) Create() (err error) {
