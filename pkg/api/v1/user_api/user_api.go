@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/birnamwood/go-nuxt/pkg/logger"
 	"github.com/birnamwood/go-nuxt/pkg/model"
 	"github.com/birnamwood/go-nuxt/pkg/repository/userRepository"
 	"github.com/dgrijalva/jwt-go"
@@ -11,6 +12,7 @@ import (
 )
 
 func Hello(c echo.Context) error {
+	logger.NewLogger().Info("API呼び出し")
 	return c.String(http.StatusOK, "Hello, World!")
 }
 

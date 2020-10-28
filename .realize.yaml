@@ -23,6 +23,7 @@ schema:
     extensions:
     - go
     - yaml
+    - yml
     paths:
     - ./
     ignored_paths:

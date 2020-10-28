@@ -11,6 +11,8 @@ require (
 	github.com/lib/pq v1.3.0
 	github.com/spf13/viper v1.7.1
 	github.com/valyala/fasttemplate v1.2.1 // indirect
+	go.uber.org/zap v1.10.0
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/postgres v1.0.4
 	gorm.io/gorm v1.20.4
 )

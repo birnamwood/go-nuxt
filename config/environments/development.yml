@@ -1,5 +1,7 @@
 server:
   port: 8000
+
+api:
   version: v1
 
 db:
@@ -9,3 +11,9 @@ db:
   dbname: db
   user: postgres
   password: postgres
+
+log:
+  filename: log/app.log
+  maxsize: 50 # /MB :ローテーションされる前のメガバイト単位の最大サイズ。超えるとfile名-日付.拡張子で保存される
+  maxbuckups: 10 # /days :保持する古いログファイルの最大数です。
+  maxage: 30 # /days :古いログファイルを保持する最大日数
