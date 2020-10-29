@@ -9,7 +9,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func NewLogger() *zap.Logger {
+func Init() *zap.Logger {
 	c := config.GetConfig()
 
 	w := zapcore.AddSync(&lumberjack.Logger{

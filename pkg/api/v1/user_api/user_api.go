@@ -4,15 +4,15 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/birnamwood/go-nuxt/pkg/logger"
 	"github.com/birnamwood/go-nuxt/pkg/model"
 	"github.com/birnamwood/go-nuxt/pkg/repository/userRepository"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
+	"go.uber.org/zap"
 )
 
 func Hello(c echo.Context) error {
-	logger.NewLogger().Info("API呼び出し")
+	zap.S().Info("User API Hello")
 	return c.String(http.StatusOK, "Hello, World!")
 }
 

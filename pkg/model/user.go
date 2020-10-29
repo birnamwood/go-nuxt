@@ -3,7 +3,7 @@ package model
 import (
 	"time"
 
-	"github.com/birnamwood/go-nuxt/pkg/database"
+	"github.com/birnamwood/go-nuxt/initialize/database"
 	"gorm.io/gorm"
 )
 

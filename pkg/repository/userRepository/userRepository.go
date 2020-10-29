@@ -1,7 +1,7 @@
 package userRepository
 
 import (
-	"github.com/birnamwood/go-nuxt/pkg/database"
+	"github.com/birnamwood/go-nuxt/initialize/database"
 	"github.com/birnamwood/go-nuxt/pkg/model"
 )
 

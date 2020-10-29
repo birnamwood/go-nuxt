@@ -4,8 +4,10 @@ import (
 	"flag"
 
 	"github.com/birnamwood/go-nuxt/config"
-	"github.com/birnamwood/go-nuxt/pkg/database"
-	"github.com/birnamwood/go-nuxt/pkg/route"
+	"github.com/birnamwood/go-nuxt/initialize/database"
+	"github.com/birnamwood/go-nuxt/initialize/logger"
+	"github.com/birnamwood/go-nuxt/initialize/route"
+	"go.uber.org/zap"
 )
 
 // main
@@ -16,6 +18,11 @@ func main() {
 	flag.Parse()
 	//パラメータを渡してconfigの初期化を行う
 	config.Init(*env)
+	logger := logger.Init()
+	zap.ReplaceGlobals(logger)
+	logger.Info("Logger Initialize")
+
 	database.Init()
+	logger.Info("DB Initialize")
 	route.Init()
 }
