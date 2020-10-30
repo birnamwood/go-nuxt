@@ -8,7 +8,7 @@ import (
 	"github.com/birnamwood/go-nuxt/pkg/domain/model"
 	"github.com/birnamwood/go-nuxt/pkg/usecase"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
 
@@ -79,7 +79,7 @@ func (uh *userHandler) Signup(c echo.Context) error {
 func (uh *userHandler) Login(c echo.Context) error {
 	user := new(model.User)
 	if err := c.Bind(user); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, "入力情報が正しくありません。")
 	}
 
 	loginUser, err := uh.userUsecase.FindByEmail(user.Email)
@@ -88,10 +88,7 @@ func (uh *userHandler) Login(c echo.Context) error {
 	}
 
 	if loginUser.ID == 0 || user.Password != loginUser.Password {
-		return &echo.HTTPError{
-			Code:    http.StatusUnauthorized,
-			Message: "invalid email or password",
-		}
+		return c.JSON(http.StatusBadRequest, "メールアドレスかパスワードが正しくありません。")
 	}
 
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -104,7 +101,7 @@ func (uh *userHandler) Login(c echo.Context) error {
 
 	t, err := token.SignedString([]byte("secret"))
 	if err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, "トークン生成に失敗しました。"+err.Error())
 	}
 	return c.JSON(http.StatusOK, t)
 }

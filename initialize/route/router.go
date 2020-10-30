@@ -8,15 +8,22 @@ import (
 	"github.com/birnamwood/go-nuxt/pkg/infrastructure/persistence"
 	"github.com/birnamwood/go-nuxt/pkg/interface/handler"
 	"github.com/birnamwood/go-nuxt/pkg/usecase"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 //Init router
 func Init() {
 	c := config.GetConfig()
+
+	//依存性の注入
+	userPersistence := persistence.NewUserPersistence(database.GetDB())
+	userUsecase := usecase.NewUserUsecase(userPersistence)
+	userHandler := handler.NewUserHandler(userUsecase)
+
 	//FWはechoを使用
 	e := echo.New()
+	e.HideBanner = true
 
 	// CORSの設定追加。下記のような形で設定
 	// AllowOrigins: []string{"https://labstack.net"},
@@ -26,16 +33,13 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	// defer file.Close()
+	defer file.Close()
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Output: file,
 	}))
+	e.Logger.SetOutput(file)
 	//echoのmiddleware 予期せずpanic時、サーバは落とさずにエラーを返せるようにリカバリーする
 	e.Use(middleware.Recover())
-
-	userPersistence := persistence.NewUserPersistence(database.GetDB())
-	userUsecase := usecase.NewUserUsecase(userPersistence)
-	userHandler := handler.NewUserHandler(userUsecase)
 
 	//DB接続テスト用
 	e.GET("/", userHandler.HelloUser)
