@@ -18,11 +18,14 @@ func main() {
 	flag.Parse()
 	//パラメータを渡してconfigの初期化を行う
 	config.Init(*env)
+
 	logger := logger.Init()
 	zap.ReplaceGlobals(logger)
 	logger.Info("Logger Initialize")
 
 	database.Init()
 	logger.Info("DB Initialize")
+
+	logger.Info("============= Server Srart =============")
 	route.Init()
 }
