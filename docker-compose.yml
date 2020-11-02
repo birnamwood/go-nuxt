@@ -28,4 +28,6 @@ services:
     volumes:
       # ホストOS：コンテナ側
       - ./:/go/src/github.com/birnamwood/go-nuxt/
-    command: realize start --server
+    command: >
+      bash -c "wire gen initialize/di/di.go &&
+      realize start --server"

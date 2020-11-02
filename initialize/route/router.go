@@ -5,9 +5,7 @@ import (
 
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
-	"github.com/birnamwood/go-nuxt/pkg/infrastructure/persistence"
-	"github.com/birnamwood/go-nuxt/pkg/interface/handler"
-	"github.com/birnamwood/go-nuxt/pkg/usecase"
+	"github.com/birnamwood/go-nuxt/initialize/di"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -17,9 +15,7 @@ func Init() {
 	c := config.GetConfig()
 
 	//依存性の注入
-	userPersistence := persistence.NewUserPersistence(database.GetDB())
-	userUsecase := usecase.NewUserUsecase(userPersistence)
-	userHandler := handler.NewUserHandler(userUsecase)
+	userHandler := di.InitializeUserHandler(database.GetDB())
 
 	//FWはechoを使用
 	e := echo.New()
