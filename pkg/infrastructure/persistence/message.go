@@ -51,7 +51,7 @@ func (mp *MessagePersistence) FindAll() ([]*model.Message, error) {
 //FindByUserID comment
 func (mp *MessagePersistence) FindByUserID(userID int) (*model.Message, error) {
 	message := &model.Message{ID: userID}
-	if err := mp.db.Where("ID = ?", userID).First(&message).Error; err != nil {
+	if err := mp.db.Where("UserID = ?", userID).First(&message).Error; err != nil {
 		return nil, errors.Wrapf(err, "ユーザーIDでの検索に失敗しました。: '%s'", strconv.Itoa(userID))
 	}
 	return message, nil
