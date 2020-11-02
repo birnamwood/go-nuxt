@@ -20,3 +20,10 @@ func InitializeUserHandler(db *gorm.DB) handler.UserHandler {
 	userHandler := handler.NewUserHandler(userUsecase)
 	return userHandler
 }
+
+func InitializeMessageHandler(db *gorm.DB) handler.MessageHandler {
+	messageRepository := persistence.NewMessagePersistence(db)
+	messageUsecase := usecase.NewMessageUsecase(messageRepository)
+	messageHandler := handler.NewMessageHandler(messageUsecase)
+	return messageHandler
+}

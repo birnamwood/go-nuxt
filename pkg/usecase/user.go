@@ -5,6 +5,7 @@ import (
 	"github.com/birnamwood/go-nuxt/pkg/domain/repository"
 )
 
+//UserUsecase interface
 type UserUsecase interface {
 	Create(user *model.User) (*model.User, error)
 	// Update(user *model.User) (*model.User, error)
@@ -15,14 +16,17 @@ type UserUsecase interface {
 	FindByEmail(email string) (*model.User, error)
 }
 
+//userUsecase struct
 type userUsecase struct {
 	userRepo repository.UserRepository
 }
 
+//NewUserUsecase New
 func NewUserUsecase(userRepo repository.UserRepository) UserUsecase {
 	return &userUsecase{userRepo: userRepo}
 }
 
+//Create User
 func (uu *userUsecase) Create(user *model.User) (*model.User, error) {
 	newUser, err := uu.userRepo.Create(user)
 	if err != nil {
@@ -30,6 +34,8 @@ func (uu *userUsecase) Create(user *model.User) (*model.User, error) {
 	}
 	return newUser, nil
 }
+
+//FindByEmail text
 func (uu *userUsecase) FindByEmail(email string) (*model.User, error) {
 	user, err := uu.userRepo.FindByEmail(email)
 	if err != nil {
@@ -38,6 +44,7 @@ func (uu *userUsecase) FindByEmail(email string) (*model.User, error) {
 	return user, nil
 }
 
+//FindByID FindUser
 func (uu *userUsecase) FindByID(id int) (*model.User, error) {
 	user, err := uu.userRepo.FindByID(id)
 	if err != nil {

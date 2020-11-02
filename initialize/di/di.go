@@ -14,3 +14,7 @@ func InitializeUserHandler(db *gorm.DB) handler.UserHandler {
 	wire.Build(handler.NewUserHandler, usecase.NewUserUsecase, persistence.NewUserPersistence)
 	return nil
 }
+func InitializeMessageHandler(db *gorm.DB) handler.MessageHandler {
+	wire.Build(handler.NewMessageHandler, usecase.NewMessageUsecase, persistence.NewMessagePersistence)
+	return nil
+}

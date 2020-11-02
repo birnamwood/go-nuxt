@@ -12,14 +12,17 @@ import (
 	"gorm.io/gorm"
 )
 
+//UserPersistence struct
 type UserPersistence struct {
 	db *gorm.DB
 }
 
+//NewUserPersistence New
 func NewUserPersistence(database *gorm.DB) repository.UserRepository {
 	return &UserPersistence{db: database}
 }
 
+//Create UserCreate
 func (up *UserPersistence) Create(user *model.User) (*model.User, error) {
 	if err := up.db.Create(&user).Error; err != nil {
 		json, _ := json.Marshal(&user)
@@ -29,6 +32,7 @@ func (up *UserPersistence) Create(user *model.User) (*model.User, error) {
 	return user, nil
 }
 
+//Update Updateuser
 func (up *UserPersistence) Update(user *model.User) (*model.User, error) {
 	if err := up.db.Save(&user).Error; err != nil {
 		json, _ := json.Marshal(&user)
@@ -37,6 +41,7 @@ func (up *UserPersistence) Update(user *model.User) (*model.User, error) {
 	return user, nil
 }
 
+//Delete User
 func (up *UserPersistence) Delete(user *model.User) error {
 	if err := up.db.Delete(&user).Error; err != nil {
 		json, _ := json.Marshal(&user)
@@ -45,6 +50,7 @@ func (up *UserPersistence) Delete(user *model.User) error {
 	return nil
 }
 
+//DeleteUpdate User論理削除
 func (up *UserPersistence) DeleteUpdate(user *model.User) (*model.User, error) {
 	if err := up.db.Model(&user).Update("DeletedAt", time.Now()).Error; err != nil {
 		json, _ := json.Marshal(&user)

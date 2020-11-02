@@ -12,6 +12,7 @@ import (
 	"go.uber.org/zap"
 )
 
+//UserHandler interface
 type UserHandler interface {
 	Signup(echo.Context) error
 	Login(echo.Context) error
@@ -22,10 +23,12 @@ type UserHandler interface {
 	HelloUser(echo.Context) error
 }
 
+//userHandler struct
 type userHandler struct {
 	userUsecase usecase.UserUsecase
 }
 
+//NewUserHandler New
 func NewUserHandler(userUsecase usecase.UserUsecase) UserHandler {
 	return &userHandler{userUsecase: userUsecase}
 }

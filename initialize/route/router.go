@@ -17,6 +17,7 @@ func Init() {
 
 	//依存性の注入
 	userHandler := di.InitializeUserHandler(database.GetDB())
+	messageHandler := di.InitializeMessageHandler(database.GetDB())
 
 	//FWはechoを使用
 	e := echo.New()
@@ -62,6 +63,7 @@ func Init() {
 		v1.POST("/current-user", userHandler.GetCurrentUser)
 		v1.POST("/user/:user_id", userHandler.ShowUser)
 		v1.POST("/users", userHandler.ShowUsers)
+		v1.POST("/send-message", messageHandler.SendMessage)
 	}
 	v2 := e.Group("/api/v2")
 	{

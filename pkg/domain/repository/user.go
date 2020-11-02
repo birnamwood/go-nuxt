@@ -4,6 +4,7 @@ import (
 	"github.com/birnamwood/go-nuxt/pkg/domain/model"
 )
 
+//UserRepository text
 type UserRepository interface {
 	Create(user *model.User) (*model.User, error)
 	Update(user *model.User) (*model.User, error)
