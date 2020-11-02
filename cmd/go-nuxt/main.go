@@ -19,13 +19,15 @@ func main() {
 	//パラメータを渡してconfigの初期化を行う
 	config.Init(*env)
 
+	//Zapの初期化
 	logger := logger.Init()
 	zap.ReplaceGlobals(logger)
 	logger.Info("Logger Initialize")
 
+	//Database初期化
 	database.Init()
 	logger.Info("DB Initialize")
 
-	logger.Info("============= Server Srart =============")
 	route.Init()
+	logger.Info("============= Server Srart =============")
 }

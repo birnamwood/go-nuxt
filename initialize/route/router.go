@@ -1,6 +1,7 @@
 package route
 
 import (
+	"net"
 	"os"
 
 	"github.com/birnamwood/go-nuxt/config"
@@ -19,6 +20,7 @@ func Init() {
 
 	//FWはechoを使用
 	e := echo.New()
+	//起動時にログにバナーを表示しない
 	e.HideBanner = true
 
 	// CORSの設定追加。下記のような形で設定
@@ -31,9 +33,12 @@ func Init() {
 	}
 	defer file.Close()
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: httpLogFormat(),
 		Output: file,
 	}))
 	e.Logger.SetOutput(file)
+
+	e.Use(middleware.BodyDump(bodyDumpHandler))
 	//echoのmiddleware 予期せずpanic時、サーバは落とさずにエラーを返せるようにリカバリーする
 	e.Use(middleware.Recover())
 
@@ -63,7 +68,35 @@ func Init() {
 		v2.Use(middleware.JWT([]byte("secret")))
 	}
 
-	e.Logger.Info("Server Start" + ":" + c.GetString("server.port"))
 	//e.start(ポート番号)でサーバースタート
 	e.Logger.Fatal(e.Start(":" + c.GetString("server.port")))
+}
+
+func httpLogFormat() string {
+	// Refer to https://github.com/tkuchiki/alp
+	var format string
+	format += "time:${time_rfc3339}\t"
+	format += "host:${remote_ip}\t"
+	format += "forwardedfor:${header:x-forwarded-for}\t"
+	format += "req:-\t"
+	format += "status:${status}\t"
+	format += "method:${method}\t"
+	format += "uri:${uri}\t"
+	format += "size:${bytes_out}\t"
+	format += "referer:${referer}\t"
+	format += "ua:${user_agent}\t"
+	format += "reqtime_ns:${latency}\t"
+	format += "cache:-\t"
+	format += "runtime:-\t"
+	format += "apptime:-\t"
+	format += "vhost:${host}\t"
+	format += "reqtime_human:${latency_human}\t"
+	format += "x-request-id:${id}\t"
+	format += "host:${host}\n"
+	return format
+}
+
+func bodyDumpHandler(c echo.Context, reqBody, resBody []byte) {
+	c.Echo().Logger.Print("IPアドレス:", net.ParseIP(c.RealIP()), " Request Body: %v\n", string(reqBody))
+	c.Echo().Logger.Print("IPアドレス:", net.ParseIP(c.RealIP()), " Response Body: %v\n", string(resBody))
 }

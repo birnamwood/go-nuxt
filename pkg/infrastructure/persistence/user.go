@@ -75,7 +75,7 @@ func (up *UserPersistence) FindByID(id int) (*model.User, error) {
 func (up *UserPersistence) FindByEmail(email string) (*model.User, error) {
 	user := &model.User{Email: email}
 	if err := up.db.Where("email = ?", email).First(&user).Error; err != nil {
-		zap.S().Warn("err: ", "FindUserByEmail=", email)
+		zap.S().Warn("err: ", "Emailでのユーザー検索に失敗しました。:", email)
 		return nil, errors.Wrapf(err, "Emailでのユーザー検索に失敗しました。: '%s'", email)
 	}
 	return user, nil
