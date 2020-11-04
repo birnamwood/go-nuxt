@@ -5,6 +5,7 @@ import (
 
 	"github.com/birnamwood/go-nuxt/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
+	"github.com/birnamwood/go-nuxt/initialize/firebase"
 	"github.com/birnamwood/go-nuxt/initialize/logger"
 	"github.com/birnamwood/go-nuxt/initialize/route"
 	"go.uber.org/zap"
@@ -27,6 +28,10 @@ func main() {
 	//Database初期化
 	database.Init()
 	logger.Info("DB Initialize")
+
+	//Firebase初期化
+	firebase.Init()
+	logger.Info("Firebase Initialize")
 
 	route.Init()
 	logger.Info("============= Server Srart =============")

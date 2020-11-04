@@ -18,3 +18,6 @@ log:
   maxsize: 10 # /MB :ローテーションされる前のメガバイト単位の最大サイズ。超えるとfile名-日付.拡張子で保存される
   maxbuckups: 3 # /days :保持する古いログファイルの最大数です。
   maxage: 5 # /days :古いログファイルを保持する最大日数
+
+firebase:
+  credential: config/firebase/golang-messaging-firebase-adminsdk-15hkq-c1c52b1a01.json
