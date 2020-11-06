@@ -34,5 +34,4 @@ func main() {
 	logger.Info("Firebase Initialize")
 
 	route.Init()
-	logger.Info("============= Server Srart =============")
 }

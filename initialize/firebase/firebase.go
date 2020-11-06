@@ -31,7 +31,7 @@ func Init() {
 	}
 }
 
-//GetFCM comment
+//GetFCM return Firebase Clound Messaging
 func GetFCM() *messaging.Client {
 	return message
 }

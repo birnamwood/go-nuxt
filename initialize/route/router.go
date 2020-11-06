@@ -9,6 +9,7 @@ import (
 	"github.com/birnamwood/go-nuxt/initialize/di"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"go.uber.org/zap"
 )
 
 //Init router
@@ -23,6 +24,7 @@ func Init() {
 	e := echo.New()
 	//起動時にログにバナーを表示しない
 	e.HideBanner = true
+	e.HidePort = true
 
 	// CORSの設定追加。下記のような形で設定
 	// AllowOrigins: []string{"https://labstack.net"},
@@ -71,6 +73,7 @@ func Init() {
 	}
 
 	//e.start(ポート番号)でサーバースタート
+	zap.S().Info("=============Server Srart" + c.GetString("server.port") + "=============")
 	e.Logger.Fatal(e.Start(":" + c.GetString("server.port")))
 }
 
