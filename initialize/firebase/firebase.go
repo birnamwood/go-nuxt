@@ -6,7 +6,7 @@ import (
 
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/messaging"
-	"github.com/birnamwood/go-nuxt/config"
+	"github.com/birnamwood/go-nuxt/initialize/config"
 	"google.golang.org/api/option"
 )
 

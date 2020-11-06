@@ -4,7 +4,7 @@ package database
 import (
 	"log"
 
-	"github.com/birnamwood/go-nuxt/config"
+	"github.com/birnamwood/go-nuxt/initialize/config"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"

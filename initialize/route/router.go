@@ -4,7 +4,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/birnamwood/go-nuxt/config"
+	"github.com/birnamwood/go-nuxt/initialize/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
 	"github.com/birnamwood/go-nuxt/initialize/di"
 	"github.com/labstack/echo/v4"

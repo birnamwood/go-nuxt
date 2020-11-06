@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/birnamwood/go-nuxt/config"
+	"github.com/birnamwood/go-nuxt/initialize/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
 	"github.com/birnamwood/go-nuxt/initialize/firebase"
 	"github.com/birnamwood/go-nuxt/initialize/logger"
