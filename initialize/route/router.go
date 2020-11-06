@@ -73,7 +73,7 @@ func Init() {
 	}
 
 	//e.start(ポート番号)でサーバースタート
-	zap.S().Info("=============Server Srart" + c.GetString("server.port") + "=============")
+	zap.S().Info("============= Server Srart Port:" + c.GetString("server.port") + " =============")
 	e.Logger.Fatal(e.Start(":" + c.GetString("server.port")))
 }
 
