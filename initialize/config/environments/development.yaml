@@ -20,4 +20,4 @@ log:
   maxage: 5 # /days :古いログファイルを保持する最大日数
 
 firebase:
-  credential: config/firebase/golang-messaging-firebase-adminsdk-15hkq-c1c52b1a01.json
+  credential: initialize/config/firebase/golang-messaging-firebase-adminsdk-15hkq-c1c52b1a01.json

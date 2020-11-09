@@ -1,6 +1,8 @@
 package config
 
 import (
+	"path/filepath"
+
 	"github.com/spf13/viper"
 )
 
@@ -13,7 +15,11 @@ func Init(env string) {
 	//上から設定ファイル拡張子・ファイル名・パスを指定
 	c.SetConfigFile("yaml")
 	c.SetConfigName(env)
-	c.AddConfigPath("config/environments/")
+	path, patherr := filepath.Abs("initialize/config/environments/")
+	if patherr != nil {
+		panic(patherr)
+	}
+	c.AddConfigPath(path)
 	if err := c.ReadInConfig(); err != nil {
 		panic(err)
 	}
