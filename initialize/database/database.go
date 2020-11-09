@@ -8,6 +8,7 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -36,7 +37,10 @@ func Init() {
 	if err != nil {
 		log.Fatal("マイグレーション失敗")
 	}
-	m.Steps(2)
+	steperr := m.Steps(2)
+	if steperr != nil {
+		zap.S().Info(steperr.Error())
+	}
 }
 
 //GetDB return db connection

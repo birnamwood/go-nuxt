@@ -30,4 +30,5 @@ services:
       - ./:/go/src/github.com/birnamwood/go-nuxt/
     command: >
       bash -c "wire gen initialize/di/di.go &&
+      golangci-lint run &&
       realize start --server"
