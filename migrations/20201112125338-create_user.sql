@@ -1,3 +1,5 @@
+
+-- +migrate Up
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL primary key,
   name TEXT,
@@ -10,4 +12,6 @@ CREATE TABLE IF NOT EXISTS users (
   created_by INTEGER,
   updated_by INTEGER,
   deleted_by INTEGER
-)
+);
+-- +migrate Down
+DROP TABLE IF EXISTS users;

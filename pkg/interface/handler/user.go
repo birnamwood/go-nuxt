@@ -134,6 +134,7 @@ func (uh *userHandler) ShowUser(c echo.Context) error {
 }
 
 func (uh *userHandler) ShowUsers(c echo.Context) error {
+	zap.S().Info("test: ", "user取得")
 	users, err := uh.userUsecase.FindAll()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
