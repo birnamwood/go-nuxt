@@ -2,13 +2,7 @@ package database
 
 //
 import (
-	"log"
-
 	"github.com/birnamwood/go-nuxt/initialize/config"
-	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -30,16 +24,6 @@ func Init() {
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("データベースへの接続失敗")
-	}
-	m, err := migrate.New(
-		"file://migration",
-		"postgres://postgres:postgres@postgres:5432/db?sslmode=disable")
-	if err != nil {
-		log.Fatal("マイグレーション失敗")
-	}
-	steperr := m.Steps(2)
-	if steperr != nil {
-		zap.S().Info(steperr.Error())
 	}
 }
 
