@@ -11,7 +11,6 @@ import (
 	"go.uber.org/zap"
 )
 
-// main
 func main() {
 	// 環境設定取得 flag.String(<パラメータ名>, <デフォルト値>, <パラメータの説明>)
 	env := flag.String("e", "development", "動作環境名")

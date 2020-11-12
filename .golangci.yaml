@@ -1,0 +1,40 @@
+# golangci-lint設定ファイル。設定値の説明は下記参照
+# https://github.com/golangci/golangci-lint/blob/master/.golangci.example.yml
+
+#コメントなどはデフォルトで無視されるようになっているので無効にする。
+issues:
+  exclude-use-default: false
+
+# 有効にするLinters
+linters:
+  disable-all: true
+  enable:
+    - golint
+    - govet
+    - gofmt
+    - errcheck
+
+linters-settings:
+  errcheck:
+    # 型推論の使用をチェックするか 例) a:= b()
+    check-type-assertions: false
+    # エラーを_にして握りつぶしているのをチェックするか
+    check-blank: false
+    # 無視する命令
+    ignore: fmt:.*,io/ioutil:^Read.*
+    # 無視するファイル
+    exclude: initialize/config/errcheck/exclude.txt
+
+  govet:
+    # 経験則から問題とおぼしきものをチェックする
+    check-shadowing: true
+    enable-all: true
+    disable-all: false
+
+  golint:
+    #数値が低いほどチェックが厳しくなる。デフォルト0.8
+    min-confidence: 0.5
+
+  gofmt:
+    # コード単純化の提案をしてくれる
+    simplify: true

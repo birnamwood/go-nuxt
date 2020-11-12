@@ -9,6 +9,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+// Init Zapの初期化を行う
 func Init() *zap.Logger {
 	c := config.GetConfig()
 

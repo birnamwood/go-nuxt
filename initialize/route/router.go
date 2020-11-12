@@ -7,6 +7,7 @@ import (
 	"github.com/birnamwood/go-nuxt/initialize/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
 	"github.com/birnamwood/go-nuxt/initialize/di"
+	"github.com/birnamwood/go-nuxt/pkg/common/function"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
@@ -34,7 +35,7 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
+	defer function.CloseFile(file, c.GetString("log.filename2"))
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: httpLogFormat(),
 		Output: file,
