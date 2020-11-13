@@ -13,8 +13,10 @@ linters:
     - govet
     - gofmt
     - errcheck
+    - goimports
 
 linters-settings:
+  # エラーのチェック
   errcheck:
     # 型推論の使用をチェックするか 例) a:= b()
     check-type-assertions: false
@@ -25,16 +27,23 @@ linters-settings:
     # 無視するファイル
     exclude: initialize/config/errcheck/exclude.txt
 
+  # コンパイラによって検出されないエラーを見つける。書き方が悪いとか。
   govet:
-    # 経験則から問題とおぼしきものをチェックする
     check-shadowing: true
     enable-all: true
     disable-all: false
 
+  # コーディングのスタイルの問題を発見する。
   golint:
     #数値が低いほどチェックが厳しくなる。デフォルト0.8
     min-confidence: 0.5
 
+  # インデントとかを整理する
   gofmt:
     # コード単純化の提案をしてくれる
     simplify: true
+
+  # 足りないimportや使っていないimportをチェックする
+  goimports:
+    # 3rd-partyパッケージの後に接頭辞で始まるpackageをカンマ区切りのリストで書く
+    local-prefixes: github.com/org/project
