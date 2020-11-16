@@ -2,31 +2,36 @@ name: Check Go Project
 on: [push]
 
 jobs:
-  test:
+  setup:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go:
-        - 1.15
+        go-version: [1.15.x]
     steps:
     - name: Set up Go
-      uses: actions/setup-go@v1
+      uses: actions/setup-go@v2
       with:
-        go-version: ${{ matrix.go }}
-
+        go-version: ${{ matrix.go-version }}
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: Install golang-ci lint
-      run: |
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.32.2
-        sudo mv ./bin/golangci-lint $GOPATH/bin/
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: golang-ci lint
+      uses: golangci/golangci-lint-action@v1
+      with:
+        version: v1.32
 
     - name: Run golangci-lint
       run: golangci-lint run
 
-    - name: go get
-      run: go get -v -t -d ./...
-      
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: go test
       run: go test -v ./...
