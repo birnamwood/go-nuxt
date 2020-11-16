@@ -12,13 +12,15 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v1
       with:
-        version: ${{ matrix.go }}
+        go-version: ${{ matrix.go }}
 
     - name: checkout
       uses: actions/checkout@v2
 
     - name: Install golang-ci lint
-      run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOPATH)/bin v1.32.2
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.32.2
+        sudo mv ./bin/golangci-lint $GOPATH/bin/
 
     - name: Run golangci-lint
       run: golangci-lint run
