@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: golang-ci lint
-      uses: golangci/golangci-lint-action@v1
-      with:
-        version: v1.32
+    - name: Install golang-ci lint
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.32.2
+        sudo mv ./bin/golangci-lint $GOPATH/bin/
 
     - name: Run golangci-lint
       run: golangci-lint run
