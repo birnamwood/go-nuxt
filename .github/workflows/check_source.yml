@@ -1,0 +1,30 @@
+name: Check Go Project
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go:
+        - 1.15
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v1
+      with:
+        version: ${{ matrix.go }}
+
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: Install golang-ci lint
+      run: go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.32.2
+
+    - name: Run golangci-lint
+      run: golangci-lint run
+
+    - name: go get
+      run: go get -v -t -d ./...
+      
+    - name: go test
+      run: go test -v ./...
