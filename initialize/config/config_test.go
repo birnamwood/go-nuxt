@@ -1,25 +1,43 @@
 package config
 
 import (
-	"os"
 	"testing"
-
-	"github.com/spf13/viper"
 )
 
-func TestConfig(t *testing.T) {
-	c = viper.New()
-	c.SetConfigFile("yaml")
-	c.SetConfigName("production")
-	path, _ := os.Getwd()
-	path2 := path + "/environments/"
-	c.AddConfigPath(path2)
-
-	if err := c.ReadInConfig(); err != nil {
-		panic(err)
+func TestInit(t *testing.T) {
+	type args struct {
+		env  string
+		path string
 	}
-	c := GetConfig()
-	if c == nil {
-		t.Error("Configの初期化に失敗しました。")
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "Development環境Configファイル生成",
+			args: args{
+				env:  "development",
+				path: "./environments/",
+			},
+		},
+		{
+			name: "Production環境Configファイル生成",
+			args: args{
+				env:  "production",
+				path: "./environments/",
+			},
+		},
+		{
+			name: "Test環境Configファイル生成",
+			args: args{
+				env:  "test",
+				path: "./environments/",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Init(tt.args.env, tt.args.path)
+		})
 	}
 }

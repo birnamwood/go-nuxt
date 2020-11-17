@@ -7,7 +7,7 @@ import (
 	"github.com/birnamwood/go-nuxt/initialize/config"
 	"github.com/birnamwood/go-nuxt/initialize/database"
 	"github.com/birnamwood/go-nuxt/initialize/di"
-	"github.com/birnamwood/go-nuxt/pkg/common/function"
+	"github.com/birnamwood/go-nuxt/pkg/general/function"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"

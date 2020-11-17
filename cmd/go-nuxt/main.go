@@ -17,7 +17,7 @@ func main() {
 	//変数宣言のあとに、flag.Parseを実行することでコマンドラインのパラメータがパースされ、各変数に値が格納されます
 	flag.Parse()
 	//パラメータを渡してconfigの初期化を行う
-	config.Init(*env)
+	config.Init(*env, "./initialize/config/environments/")
 
 	//Loggerの初期化
 	logger := logger.Init()
